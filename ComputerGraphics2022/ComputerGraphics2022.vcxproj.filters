@@ -32,5 +32,8 @@
     <ClInclude Include="3rd_party\stb\stb_image.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
