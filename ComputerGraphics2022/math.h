@@ -45,8 +45,7 @@ public:
         return acos((*this * other) / (this->Length() * other.Length()));
     }
 
-    // TODO: rename to dot
-    friend T operator*(const Vec2& left, const Vec2& right) {
+    friend T dot(const Vec2& left, const Vec2& right) {
         return left.x * right.x + left.y * right.y;
     }
 
@@ -63,8 +62,8 @@ public:
         return Vec2(-x, -y);
     }
 
-    T& operator[] (int index) { return reinterpret_cast<T*>(this)[index]; }
-    T operator[] (int index) const { return reinterpret_cast<T*>(this)[index]; }
+    T& operator[] (int index) { return ((T*)this)[index]; }
+    T operator[] (int index) const { return ((T*)this)[index]; }
 
 private:
     T x, y;
@@ -86,8 +85,7 @@ public:
         return base;
     }
 
-    friend Vec3 operator-(const Vec3& left, const Vec3& right)
-    {
+    friend Vec3 operator-(const Vec3& left, const Vec3& right) {
         Vec3 base = left;
         base.x -= right.x;
         base.y -= right.y;
@@ -96,8 +94,7 @@ public:
         return  base;
     }
 
-    Vec3& operator+=(const Vec3& left)
-    {
+    Vec3& operator+=(const Vec3& left) {
         this->x += left.x;
         this->y += left.y;
         this->z += left.z;
@@ -105,8 +102,7 @@ public:
         return *this;
     }
 
-    Vec3& operator-=(const Vec3& left)
-    {
+    Vec3& operator-=(const Vec3& left) {
         this->x -= left.x;
         this->y -= left.y;
         this->z -= left.z;
@@ -114,8 +110,7 @@ public:
         return *this;
     }
 
-    Vec3 operator*(const T& right) const 
-    {
+    Vec3 operator*(const T& right) const {
         Vec3 base = *this;
         base.x *= right;
         base.y *= right;
@@ -132,8 +127,7 @@ public:
         return ((T*)(this))[index];
     }
 
-    T dot(const Vec3& right)
-    {
+    T dot(const Vec3& right) {
         // RVO
         T sum{};
         for (int i = 0; i < 3; i++)
@@ -142,8 +136,7 @@ public:
         return  sum;
     }
 
-    Vec3 GetNormalize() const
-    {
+    [[nodiscard]] Vec3 GetNormalize() const {
         Vec3 base = *this;
         size_t len = base.GetLength();
 
@@ -154,8 +147,7 @@ public:
         return base;
     }
 
-    friend Vec3 operator*(const Vec3& left, const Vec3& right)
-    {
+    friend Vec3 operator*(const Vec3& left, const Vec3& right) {
         Vec3 result = right;
         result[0] = left[1] * right[2] - left[2] * right[1];
         result[1] = left[2] * right[0] - left[0] * right[2];
