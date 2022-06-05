@@ -149,12 +149,16 @@
   <ItemGroup>
     <ClCompile Include="3rd_party\stb\stb_image.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="utils\shaderLoader.cpp" />
+    <ClCompile Include="render\Shader.cpp" />
+    <ClCompile Include="render\ShaderLoader.cpp" />
+    <ClCompile Include="utils\ShaderLoadero.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd_party\stb\stb_image.h" />
     <ClInclude Include="math.h" />
-    <ClInclude Include="utils\shaderLoader.h" />
+    <ClInclude Include="render\Shader.h" />
+    <ClInclude Include="render\ShaderLoader.h" />
+    <ClInclude Include="utils\ShaderLoadero.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

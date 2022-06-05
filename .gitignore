@@ -28,6 +28,7 @@ ipch/
 obj/
 cmake/
 glm/
+res/
 packages/
 [Bb]in
 [Dd]ebug*/

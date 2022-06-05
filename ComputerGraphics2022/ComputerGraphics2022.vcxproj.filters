@@ -18,15 +18,21 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils\shaderLoader.cpp">
+    <ClCompile Include="utils\ShaderLoadero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="3rd_party\stb\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="render\ShaderLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="utils\shaderLoader.h">
+    <ClInclude Include="utils\ShaderLoadero.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="3rd_party\stb\stb_image.h">
@@ -34,6 +40,12 @@
     </ClInclude>
     <ClInclude Include="math.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render\ShaderLoader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
