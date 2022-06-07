@@ -3,12 +3,7 @@
 #include <GL/glew.h>
 #include <glm.hpp>
 #include <string>
-
-
-struct ID {
-    ID(size_t id) : id_(id) {}
-    size_t id_;
-};
+#include "common.h"
 
 class Shader {
 public:
