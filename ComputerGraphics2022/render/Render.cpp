@@ -23,3 +23,70 @@ void VertexBuffer::bindAttribute(size_t layout, size_t argumentCount,
 }
 void VertexBuffer::unbindAttribute(size_t layout) { glDisableVertexAttribArray(layout); }
 ID VertexBuffer::getId() const { return id_; }
+
+Renderer::Renderer(int w, int h, int bitsPerPix, const std::string& title) :
+    window_( std::make_shared<sf::RenderWindow>(sf::VideoMode(w, h, bitsPerPix), title.c_str(),
+        sf::Style::Titlebar | sf::Style::Close)) {
+   
+    windowSettings_.depthBits = 24; 
+    windowSettings_.stencilBits = 8; 
+    windowSettings_.majorVersion = 4;
+    windowSettings_.minorVersion = 3;
+
+    InitOpenGL();
+    InitImgui();
+}
+
+void Renderer::ClearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha) {
+    glClearColor(red, green, blue, alpha);    
+}
+
+void Renderer::DrawMenu() {
+    sf::Clock deltaClock;
+    float color[3] = { 0.f, 0.f, 0.f };
+    char windowTitle[255] = "ImGui + SFML = <3";
+    window_->pushGLStates();
+    // beginning of the menu    
+
+    ImGui::SFML::Update(*window_, deltaClock.restart());
+    ImGuiStyle* style = &ImGui::GetStyle();
+
+    style->WindowPadding = ImVec2(6, 6);
+    ImGui::SetNextWindowSize(ImVec2(660.f, 560.f));
+
+    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.6f, 0.6f, 0.6f, 0.2));
+    ImGui::Begin("Sample window"); // создаём окно
+
+    ImGui::BeginChild("Complete Border", ImVec2(648.f, 548.f), false); {
+
+    } ImGui::EndChild();
+
+    ImGui::InputText("Window title", windowTitle, 255);
+
+    
+    ImGui::PopStyleColor();
+    ImGui::End(); // end window
+    // end of the menu
+    ImGui::SFML::Render(*window_);
+    window_->popGLStates();
+
+    window_->display();
+}
+
+std::shared_ptr<sf::RenderWindow> Renderer::getWnd() { return window_; }
+
+// imgui::sfml wrapper
+void Renderer::ProcessIvents(sf::Event event) {
+    ImGui::SFML::ProcessEvent(event);
+}
+
+void Renderer::InitOpenGL() {
+    glewExperimental = GL_TRUE;
+    if (GLEW_OK != glewInit()) {
+        _ASSERT("GLEW ain't inited");
+    }
+}
+
+void Renderer::InitImgui() {
+    ImGui::SFML::Init(*window_);
+}

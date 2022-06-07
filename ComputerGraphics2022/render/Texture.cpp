@@ -8,7 +8,8 @@ Texture::Texture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-void Texture::bind() const {
+void Texture::bind(int slot) const {
+    glActiveTexture(GL_TEXTURE0 * slot);
     glBindTexture(GL_TEXTURE_2D, id_.id_);
 }
 

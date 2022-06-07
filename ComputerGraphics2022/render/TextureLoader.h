@@ -15,7 +15,7 @@ public:
         }
 
         auto texture = Texture();
-        texture.bind();
+        texture.bind(0);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, textureRowData);
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(textureRowData);
