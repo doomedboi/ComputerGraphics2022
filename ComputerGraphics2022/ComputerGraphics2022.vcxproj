@@ -121,13 +121,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\Avgust\source\repos\ComputerGraphics2022\ComputerGraphics2022\3rd_party\glm;C:\libs\glew\include;C:\libs\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Avgust\source\repos\ComputerGraphics2022\ComputerGraphics2022\3rd_party\glm;C:\libs\glew\include;C:\libs\SFML\include;C:\libs\imgui-1.87;C:\libs\imgui-1.87\imgui-sfml-2.5;C:\libs\glfw\GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\libs\glew\lib\Release\x64;C:\libs\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\libs\glew\lib\Release\x64;C:\libs\SFML\lib;C:\libs\glfw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,18 +147,49 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3rd_party\imgui\imgui-SFML.cpp" />
+    <ClCompile Include="3rd_party\imgui\imgui.cpp" />
+    <ClCompile Include="3rd_party\imgui\imgui_demo.cpp" />
+    <ClCompile Include="3rd_party\imgui\imgui_draw.cpp" />
+    <ClCompile Include="3rd_party\imgui\imgui_tables.cpp" />
+    <ClCompile Include="3rd_party\imgui\imgui_widgets.cpp" />
     <ClCompile Include="3rd_party\stb\stb_image.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="render\Core_Camera.cpp" />
+    <ClCompile Include="render\Render.cpp" />
     <ClCompile Include="render\Shader.cpp" />
     <ClCompile Include="render\ShaderLoader.cpp" />
-    <ClCompile Include="utils\ShaderLoadero.cpp" />
+    <ClCompile Include="render\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rd_party\imgui\imconfig-SFML.h" />
+    <ClInclude Include="3rd_party\imgui\imconfig.h" />
+    <ClInclude Include="3rd_party\imgui\imgui-SFML.h" />
+    <ClInclude Include="3rd_party\imgui\imgui-SFML_export.h" />
+    <ClInclude Include="3rd_party\imgui\imgui.h" />
+    <ClInclude Include="3rd_party\imgui\imgui_internal.h" />
+    <ClInclude Include="3rd_party\imgui\imstb_rectpack.h" />
+    <ClInclude Include="3rd_party\imgui\imstb_textedit.h" />
+    <ClInclude Include="3rd_party\imgui\imstb_truetype.h" />
     <ClInclude Include="3rd_party\stb\stb_image.h" />
+    <ClInclude Include="core\Core.h" />
+    <ClInclude Include="core\InputManager.h" />
     <ClInclude Include="math.h" />
+    <ClInclude Include="render\Core_Camera.h" />
+    <ClInclude Include="render\common.h" />
+    <ClInclude Include="render\Render.h" />
+    <ClInclude Include="render\Texture.h" />
+    <ClInclude Include="render\TextureLoader.h" />
+    <ClInclude Include="render\Vertex.h" />
     <ClInclude Include="render\Shader.h" />
     <ClInclude Include="render\ShaderLoader.h" />
-    <ClInclude Include="utils\ShaderLoadero.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="glew32.dll" />
+    <None Include="imgui.ini" />
+    <None Include="sfml-graphics-2.dll" />
+    <None Include="sfml-system-2.dll" />
+    <None Include="sfml-window-2.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

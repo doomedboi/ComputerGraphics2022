@@ -28,6 +28,8 @@ Renderer::Renderer(int w, int h, int bitsPerPix, const std::string& title) :
     window_( std::make_shared<sf::RenderWindow>(sf::VideoMode(w, h, bitsPerPix), title.c_str(),
         sf::Style::Titlebar | sf::Style::Close)) {
    
+    // in the future take it from user and move
+    // to constructor to set in time of creation render window
     windowSettings_.depthBits = 24; 
     windowSettings_.stencilBits = 8; 
     windowSettings_.majorVersion = 4;
@@ -71,6 +73,18 @@ void Renderer::DrawMenu() {
     window_->popGLStates();
 
     window_->display();
+}
+
+int Renderer::GetHeight() {
+    return window_->getSize().y;
+}
+
+int Renderer::GetWidth() {
+    return window_->getSize().x;
+}
+
+void Renderer::DrawArrays(GLenum mode, int from, int to) {
+    glDrawArrays(mode, from, to);
 }
 
 std::shared_ptr<sf::RenderWindow> Renderer::getWnd() { return window_; }

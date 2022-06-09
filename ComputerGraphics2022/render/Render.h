@@ -58,6 +58,13 @@ public:
     Renderer(int w, int h, int bitsPerPix, const std::string& title);
     void ClearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
     void DrawMenu();
+    void BeginFrame();
+    void EndFrame();
+    int GetHeight();
+    int GetWidth();
+    void SetDrawPrimitive(RenderBehavior* drawStrategy);
+    void DrawArrays(GLenum mode, int from, int to);
+    void DrawPrimitive();
     
     std::shared_ptr<sf::RenderWindow> getWnd();
     void ProcessIvents(sf::Event);
