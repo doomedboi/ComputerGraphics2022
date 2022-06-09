@@ -154,12 +154,14 @@
     <ClCompile Include="3rd_party\imgui\imgui_tables.cpp" />
     <ClCompile Include="3rd_party\imgui\imgui_widgets.cpp" />
     <ClCompile Include="3rd_party\stb\stb_image.cpp" />
+    <ClCompile Include="core\InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="render\Core_Camera.cpp" />
     <ClCompile Include="render\Render.cpp" />
     <ClCompile Include="render\Shader.cpp" />
     <ClCompile Include="render\ShaderLoader.cpp" />
     <ClCompile Include="render\Texture.cpp" />
+    <ClCompile Include="utils\assimpParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd_party\imgui\imconfig-SFML.h" />
@@ -183,6 +185,7 @@
     <ClInclude Include="render\Vertex.h" />
     <ClInclude Include="render\Shader.h" />
     <ClInclude Include="render\ShaderLoader.h" />
+    <ClInclude Include="utils\assimpParser.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll" />

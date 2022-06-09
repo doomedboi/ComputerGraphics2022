@@ -12,6 +12,15 @@ void Shader::unbind() {
 }
 
 void Shader::setUniform(const std::string& fileName, const glm::mat4& mat) {
-	// TODO: make overload - tree
 	glUniformMatrix4fv(glGetUniformLocation(id_.id_, fileName.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
+
+void Shader::setUniform(const std::string& fileName, const int val) {
+	glUniform1i(glGetUniformLocation(id_.id_, fileName.c_str()), val);
+}
+void Shader::setUniform(const std::string& fileName, const float val) {
+	glUniform1f(glGetUniformLocation(id_.id_, fileName.c_str()), val);
+}
+void Shader::setUniform(const std::string& fileName, const glm::vec3& vec) {
+	glUniform3fv(glGetUniformLocation(id_.id_, fileName.c_str()), 1, &vec[0]);
 }
