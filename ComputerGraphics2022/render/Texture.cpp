@@ -9,7 +9,8 @@ Texture::Texture() {
 }
 
 void Texture::bind(int slot) const {
-    glActiveTexture(GL_TEXTURE0 * slot);
+    _ASSERT(GL_TEXTURE0 + slot < GL_TEXTURE31);
+    glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, id_.id_);
 }
 
