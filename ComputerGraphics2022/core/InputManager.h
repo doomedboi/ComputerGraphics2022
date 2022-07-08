@@ -8,16 +8,11 @@
  to listen changes. As I assume */
 class InputManager final {
 public:
-    bool IsKeyPressed(sf::Keyboard::Key key) const {
-        return sf::Keyboard::isKeyPressed(key);
-    }
+    bool IsKeyPressed(sf::Keyboard::Key key) const;
 
     bool IsKeyReleased(sf::Keyboard::Key p_key) const;
     bool IsMouseButtonPressed(sf::Mouse::Button p_button) const;
     bool IsMouseButtonReleased(sf::Mouse::Button p_button) const;
-    std::pair<int, int> GetMousePosition() const {
-        auto [x, y] = sf::Mouse::getPosition();
-        return { x, y };
-    }
+    std::pair<int, int> GetMousePosition() const;
     void ClearEvents();
 };

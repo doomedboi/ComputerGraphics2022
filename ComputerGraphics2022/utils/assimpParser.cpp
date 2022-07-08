@@ -1,6 +1,7 @@
+#include "assimpParser.h"
 
-bool AssimpParser::LoadModel(const std::string& fileName, std::vector<Mesh*>& meshes, std::vector<std::string>& materials, EModelParserFlags flags) {
-	
+bool AssimpParser::LoadModel(const std::string& fileName, std::shared_ptr<CRawModel> model, EModelParserFlags flags) {
+							    
 	Assimp::Importer import;
 	const auto scene = import.ReadFile(fileName, static_cast<unsigned int>(flags));
 	
@@ -8,11 +9,11 @@ bool AssimpParser::LoadModel(const std::string& fileName, std::vector<Mesh*>& me
 		return false;
 	}
 
-	ProcessMaterials(scene, materials);
+	ProcessMaterials(scene, model->materialNames);
 
 	aiMatrix4x4 identity;
 
-	ProcessNode(&identity, scene->mRootNode, scene, meshes);
+	ProcessNode(&identity, scene->mRootNode, scene, model->meshes);
 	return true;
 }
 
@@ -27,7 +28,7 @@ void AssimpParser::ProcessMaterials(const aiScene* scene, std::vector<std::strin
 	}
 }
 
-void AssimpParser::ProcessNode(void* transform, aiNode* node, const aiScene* scene, std::vector<Mesh*>& meshes) {
+void AssimpParser::ProcessNode(void* transform, aiNode* node, const aiScene* scene, std::vector<CMesh*>& meshes) {
 	aiMatrix4x4 nodeTransformation = *reinterpret_cast<aiMatrix4x4*>(transform) * node->mTransformation;
 	
 	for (uint32_t i = 0; i < node->mNumMeshes; ++i) {
@@ -35,7 +36,7 @@ void AssimpParser::ProcessNode(void* transform, aiNode* node, const aiScene* sce
 		std::vector<uint32_t> indices;
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		ProcessMesh(&nodeTransformation, mesh, scene, vertices, indices);
-		meshes.push_back(new Mesh(vertices, indices, mesh->mMaterialIndex));
+		meshes.push_back(new CMesh(vertices, indices, mesh->mMaterialIndex));
 	}
 
 	// Then do the same for each of its children
@@ -54,35 +55,14 @@ void AssimpParser::ProcessMesh(void* transform, aiMesh* mesh, const aiScene* sce
 		aiVector3D tangent = mesh->mTangents ? meshTransformation * mesh->mTangents[i] : aiVector3D(0.0f, 0.0f, 0.0f);
 		aiVector3D bitangent = mesh->mBitangents ? meshTransformation * mesh->mBitangents[i] : aiVector3D(0.0f, 0.0f, 0.0f);
 
-		outVertices.push_back
-		(
-			{
-				Mathgl::Vector3{
-					position.x,
-					position.y,
-					position.z
-				},
-				Mathgl::Vector2{
-					texCoords.x,
-					texCoords.y
-				},
-				Mathgl::Vector3{
-					normal.x,
-					normal.y,
-					normal.z
-				},
-				Mathgl::Vector3{
-					tangent.x,
-					tangent.y,
-					tangent.z
-				},
-				Mathgl::Vector3{
-					bitangent.x,
-					bitangent.y,
-					bitangent.z
-				}
-			}
-		);
+		Vertex vertex;
+		
+		vertex.pos[0] = position.x; vertex.pos[1] = position.y; vertex.pos[2] = position.z;
+		vertex.norm[0] = normal.x; vertex.norm[1] = normal.y; vertex.norm[2] = normal.z;
+		vertex.uv[0] = texCoords.x; vertex.uv[1] = texCoords.y;
+		
+		outVertices.push_back(vertex);
+		//outVertices.emplace_back(vertex);
 	}
 
 	for (uint32_t faceID = 0; faceID < mesh->mNumFaces; ++faceID) {

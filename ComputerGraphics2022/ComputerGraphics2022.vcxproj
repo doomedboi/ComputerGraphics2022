@@ -121,13 +121,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\Avgust\source\repos\ComputerGraphics2022\ComputerGraphics2022\3rd_party\glm;C:\libs\glew\include;C:\libs\SFML\include;C:\libs\imgui-1.87;C:\libs\imgui-1.87\imgui-sfml-2.5;C:\libs\glfw\GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Avgust\source\repos\ComputerGraphics2022\ComputerGraphics2022\3rd_party\glm;C:\libs\glew\include;C:\libs\SFML\include;C:\libs\imgui-1.87;C:\libs\imgui-1.87\imgui-sfml-2.5;C:\libs\glfw\GLFW;C:\libs\assimplib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\libs\glew\lib\Release\x64;C:\libs\SFML\lib;C:\libs\glfw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\libs\glew\lib\Release\x64;C:\libs\SFML\lib;C:\libs\glfw;C:\libs\assimplib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;glfw3.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -157,6 +157,7 @@
     <ClCompile Include="core\InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="render\Core_Camera.cpp" />
+    <ClCompile Include="render\Mesh.cpp" />
     <ClCompile Include="render\Render.cpp" />
     <ClCompile Include="render\Shader.cpp" />
     <ClCompile Include="render\ShaderLoader.cpp" />
@@ -179,6 +180,8 @@
     <ClInclude Include="math.h" />
     <ClInclude Include="render\Core_Camera.h" />
     <ClInclude Include="render\common.h" />
+    <ClInclude Include="render\Mesh.h" />
+    <ClInclude Include="render\Model.h" />
     <ClInclude Include="render\Render.h" />
     <ClInclude Include="render\Texture.h" />
     <ClInclude Include="render\TextureLoader.h" />

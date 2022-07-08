@@ -2,6 +2,7 @@
 
 
 VertexArrayObject::VertexArrayObject() { glGenVertexArrays(1, &id_.id_); }
+
 void VertexArrayObject::bind() const { glBindVertexArray(id_.id_); }
 void VertexArrayObject::unbind() const { glBindVertexArray(0); }
 ID VertexArrayObject::getId() const { return id_; }

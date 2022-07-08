@@ -1,3 +1,16 @@
+#pragma once
+#include <string>
+#include <vector>
+#include "../render/Shader.h"
+#include "../render/Vertex.h"
+#include "../render/Mesh.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/matrix4x4.h>
+#include <assimp/postprocess.h>
+#include "../render/Model.h"
+
+
 enum class EModelParserFlags {
 	NONE = 0x0,
 	CALC_TANGENT_SPACE = 0x1,
@@ -40,12 +53,11 @@ class AssimpParser {
 public:
 	bool LoadModel(
 		const std::string& fileName,
-		std::vector<Mesh*>& meshes,
-		std::vector<std::string>& materials,
+		std::shared_ptr<CRawModel> model,
 		EModelParserFlags flags
 	);
 private:
 	void ProcessMaterials(const struct aiScene* scene, std::vector<std::string>& materials);;
-	void ProcessNode(void* transform, struct aiNode* node, const struct aiScene* scene, std::vector<Mesh*>& meshes);
+	void ProcessNode(void* transform, struct aiNode* node, const struct aiScene* scene, std::vector<CMesh*>& meshes);
 	void ProcessMesh(void* transform, struct aiMesh* mesh, const struct aiScene* scene, std::vector<Vertex>& outVertices, std::vector<uint32_t>& outIndices);
 };

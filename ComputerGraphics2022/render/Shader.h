@@ -11,7 +11,9 @@ public:
     void bind();
     void unbind();
     void setUniform(const std::string& fileName, const glm::mat4& mat);
-
+    void setUniform(const std::string& fileName, const int val);
+    void setUniform(const std::string& fileName, const float val);
+    void setUniform(const std::string& fileName, const glm::vec3& vec);
 private:
     ID id_;
 };
