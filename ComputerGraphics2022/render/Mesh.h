@@ -10,8 +10,8 @@ public:
     using uint = unsigned;
     CMesh(std::vector<Vertex>& verts,
         const std::vector<uint>& indexes, uint matIndex) :
-        vertices_(verts), indexes_(indexes) ,vertexCount_(verts.size()),
-        indexesCount_(indexes.size()) ,materialIndex_(materialIndex_) {
+        vertices_(verts), indexes_(indexes) ,vertexCount_(static_cast<unsigned>(verts.size())),
+        indexesCount_(static_cast<unsigned>(indexes.size())) ,materialIndex_(materialIndex_) {
         CreateBuffers(verts, indexes);
     }
     

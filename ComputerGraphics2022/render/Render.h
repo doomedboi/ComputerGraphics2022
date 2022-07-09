@@ -51,8 +51,8 @@ public:
         bind();
 
     }
-    void bind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer); }
-    void unbind() {}
+    void bind() {  }
+    void unbind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
     ID getId() { return id_.id_; }
 private:
     GLuint elementbuffer;

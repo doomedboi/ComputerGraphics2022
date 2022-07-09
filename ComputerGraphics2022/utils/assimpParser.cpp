@@ -61,6 +61,14 @@ void AssimpParser::ProcessMesh(void* transform, aiMesh* mesh, const aiScene* sce
 		vertex.norm[0] = normal.x; vertex.norm[1] = normal.y; vertex.norm[2] = normal.z;
 		vertex.uv[0] = texCoords.x; vertex.uv[1] = texCoords.y;
 		
+		vertex.tangent[0] = tangent.x;
+		vertex.tangent[1] = tangent.y;
+		vertex.tangent[2] = tangent.z;
+
+		vertex.bitangent[0] = bitangent.x;
+		vertex.bitangent[1] = bitangent.y;
+		vertex.bitangent[2] = bitangent.z;
+
 		outVertices.push_back(vertex);
 		//outVertices.emplace_back(vertex);
 	}
