@@ -20,7 +20,7 @@ public:
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(textureRowData);
 
-        texture.unbind();
+        texture.unbind(0);
 
         return texture;
     }

@@ -48,6 +48,15 @@ math::vec3 CCamera::GetFront() const
     return front_;
 }
 
+GLfloat CCamera::getCameraSpeed() const
+{
+    return cameraSpeed;
+}
+
+void CCamera::setCameraSpeed(GLfloat speed) {
+    cameraSpeed = speed;
+}
+
 math::mat4 CCamera::GetRenderProjectionMatrix() const {
     return projection_;
 }

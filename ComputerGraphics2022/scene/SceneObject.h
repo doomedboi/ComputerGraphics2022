@@ -92,15 +92,15 @@ public:
     void bind() override
     {
         texture.bind(0);
-        //this->textureNorm->bind(1);
+        textureNorm.bind(1);
         for (auto& m : model_->meshes)
             m->Bind();
     }
 
     void unbind()   override
     {
-        texture.unbind();
-        //textureNorm->unbind(1);
+        texture.unbind(0);
+        textureNorm.unbind(1);
         for (auto& m : model_->meshes)
             m->Unbind();
     }

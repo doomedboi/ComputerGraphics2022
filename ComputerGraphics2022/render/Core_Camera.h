@@ -19,6 +19,8 @@ public:
     void SetPosition(const math::vec3&);
     math::vec3 GetUp() const;
     math::vec3 GetFront() const;
+    GLfloat getCameraSpeed() const;
+    void setCameraSpeed(GLfloat speed);
     // render or core should do that
     math::mat4 GetRenderProjectionMatrix() const;
     float GetFov() const;
@@ -35,6 +37,7 @@ private:
     float pitch_;
     float fov_ = 45;
     math::mat4 projection_;
+    GLfloat cameraSpeed = 0.001f;
 
     void recalcCameraVectors();
 };

@@ -1,4 +1,5 @@
 #include "Render.h"
+#include "../core/Core.h"
 
 
 
@@ -136,22 +137,27 @@ void Renderer::Menu(Scene& sc)
     bool opendetails = true;
     bool openworld = true;
     ImGui::SetNextWindowSize(ImVec2(660.f, 400.f));
+    auto standartButtonSz = ImVec2(430, 50);
     if (ImGui::BeginPopupModal("Object Details", &opendetails)) {
 
         static char name[255] = "Type here to change name";
         auto coor = objects[nowSelectedDetail]->getPos();
         static char texturePath[300];
+        static float scale[3];
         ImGui::Text("Name: "); ImGui::SameLine(50.f);
         ImGui::Text(objects[nowSelectedDetail]->getName().c_str());
         ImGui::InputText("##", name, 255, 0); 
         if (ImGui::SliderFloat3("Position", translation, -1000.f, 1000.f)) {
             objects[nowSelectedDetail]->setPose(math::vec3(translation[0], translation[1], translation[2]));
         }
-        if (ImGui::Button("Change Name")) {
+        if (ImGui::SliderFloat3("Scale", scale, 0.f, 0.3f)) {
+            objects[nowSelectedDetail]->setScale(math::vec3(scale[0], scale[1], scale[2]));
+        }
+        if (ImGui::Button("Change Name", standartButtonSz)) {
             objects[nowSelectedDetail]->setName(name);
         }
         
-        if (ImGui::Button("Change Model")) {
+        if (ImGui::Button("Change Model", standartButtonSz)) {
             ImGuiFileDialog::Instance()->OpenModal("ChooseModel", "Choose File", "Model files (*.fbx *.obj){.fbx,.obj}", ".\\res\\");
         }
 
@@ -166,7 +172,7 @@ void Renderer::Menu(Scene& sc)
             ImGuiFileDialog::Instance()->Close();
         }
 
-        if (ImGui::Button("Change texture")) {
+        if (ImGui::Button("Change texture", standartButtonSz)) {
             ImGuiFileDialog::Instance()->OpenModal("Choose new texture", "Choose File", "Texture files (*.png *.jpg){.png,.jpg}", ".\\res\\");
         }
         ImGui::SetNextWindowSize(ImVec2(660.f, 400.f));
@@ -177,7 +183,10 @@ void Renderer::Menu(Scene& sc)
             objects[nowSelectedDetail]->loadTexture(texturePath);
             ImGuiFileDialog::Instance()->Close();
         }
-        if (ImGui::Button("Delete this object")) {
+        if (ImGui::Button("Change normal texture", standartButtonSz)) {
+
+        }
+        if (ImGui::Button("Delete this object", standartButtonSz)) {
             sc.deleteEntity(objects[nowSelectedDetail]);
             ImGui::CloseCurrentPopup();
         }
@@ -190,6 +199,7 @@ void Renderer::Menu(Scene& sc)
 
     static float light[4];
     static float vbgColor[3] = { 1, 0.5, 0.5 };
+    static float cameraSpeed;
     ImGui::SetNextWindowSize(ImVec2(660.f, 400.f));
     if (ImGui::BeginPopupModal("World", &openworld)) {
         if (ImGui::SliderFloat3("Light from position", light, -100.f, 100.f)) {
@@ -200,6 +210,9 @@ void Renderer::Menu(Scene& sc)
         }
         if (ImGui::SliderFloat3("Background Color", vbgColor, 0.f, 1.f)) {
             bgColor[0] = vbgColor[0]; bgColor[1] = vbgColor[1]; bgColor[2] = vbgColor[2];
+        } 
+        if (ImGui::SliderFloat("Camera speed", &cameraSpeed, 0, 1.f)) {
+            Core::Singleton().GetViewCamera().setCameraSpeed(cameraSpeed);
         }
         ImGui::EndPopup();
     }
@@ -258,9 +271,10 @@ void Renderer::Menu(Scene& sc)
                 if (strlen(name) == 0) {
                     strncpy_s(name, modelName.c_str(), modelName.size());
                 }
-                //model path
-                //texture path
+                
                 //texture normal
+
+
                 auto obj = std::make_shared<SceneObject>(math::vec3(pos[0], pos[1], pos[2]),
                     math::vec3(scale[0], scale[1], scale[2]), sp);
                 obj->setName(name);
@@ -306,7 +320,7 @@ void Renderer::Menu(Scene& sc)
         static char title[255] = "Type new title here";
         ImGui::InputText("Window title", title, sizeof(title));
 
-        if (ImGui::Button("Change")) {
+        if (ImGui::Button("Change", ImVec2(195, 25))) {
             window_->setSize(res_listbox_items_[res_listbox_item_current]);
             window_->setTitle(title);
         }

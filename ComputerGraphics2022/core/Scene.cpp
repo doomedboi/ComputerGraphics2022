@@ -29,9 +29,9 @@ void Scene::updateStates() {
         // update here model mat for every object to able to move scale etc separetely
         auto model = math::mat4(1.f);
 
-        model = glm::scale(model, glm::vec3(0.005, 0.005, 0.005));
+        model = glm::scale(model, elem->getScale());
         model = glm::translate(model, elem->getPos());
-        
+                
         shader->setUniform("model", model);
         elem->draw();
         elem->unbind();

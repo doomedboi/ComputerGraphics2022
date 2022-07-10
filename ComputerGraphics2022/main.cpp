@@ -19,7 +19,8 @@ static float lastx, lasty;
 static bool openMenu = true;
 
 void processMove() {
-	GLfloat cameraSpeed = 0.001f;
+	
+	auto cameraSpeed = Core::Singleton().GetViewCamera().getCameraSpeed();
 	if (keys[sf::Keyboard::W]) {
 		Core::Singleton().GetViewCamera().GetPosition() +=
 			Core::Singleton().GetViewCamera().GetFront() * cameraSpeed;

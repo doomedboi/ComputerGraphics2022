@@ -6,7 +6,7 @@ class Texture {
 public:
     Texture();
     void bind(int slot) const;
-    void unbind() const;
+    void unbind(int slot) const;
 private:
     ID id_;
 };
