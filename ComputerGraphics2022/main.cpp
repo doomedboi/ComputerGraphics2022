@@ -65,14 +65,7 @@ int main()
 	
 
 	using namespace math;
-		
-	auto lightPos = math::vec3(0.0f, 0.0f, 5.0f);
-	auto lightAmb = vec3(0.2f, 0.2f, 0.2f);
-	auto lightDiff = vec3(0.5f, 0.5f, 0.5f);
-	auto lightSpec = vec3(1.0f, 1.0f, 1.0f);
-
-	auto materialSpec = vec3(0.5f, 0.5f, 0.5f);
-	auto materialShine = 32.0f;
+	
 
 	math::vec3 translate_vec(0.0f);
 	float deg = 0.0f;
@@ -135,9 +128,8 @@ int main()
 		
 		
 		processMove();
-		glClearColor(0.1f, 0.6f, 0.3f, 1.0f);				//отчистка экрана
+						//отчистка экрана
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //отчистка экрана
-
 		
 		shaderProgram.bind();
 		
@@ -149,19 +141,10 @@ int main()
 		glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 800 / 600.f, 0.1f, 100.0f);
 
 
-		shaderProgram.setUniform("light.ambient", lightAmb);
-		shaderProgram.setUniform("light.diffuse", lightDiff);
-		shaderProgram.setUniform("light.specular", lightSpec);
-		shaderProgram.setUniform("light.position", lightPos);
+		
 
-		shaderProgram.setUniform("material.diffuse", 0);
-		shaderProgram.setUniform("material.normalMap", 1);
-		shaderProgram.setUniform("material.specular", materialSpec);
-		shaderProgram.setUniform("material.shininess", materialShine);
+		shaderProgram.setUniform("viewPos", Core::Singleton().GetViewCamera().GetPosition());
 
-		shaderProgram.setUniform("viewPos", glm::vec3(3, 3, 3));
-
-		//shaderProgram.setUniform("model", model);
 		shaderProgram.setUniform("view", viewMat);
 		shaderProgram.setUniform("projection", Projection);
 

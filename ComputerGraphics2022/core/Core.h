@@ -2,8 +2,9 @@
 #include "../render/common.h"
 #include "../render/Render.h"
 #include "../render/Core_Camera.h"
-#include "InputManager.h"
 #include <memory>
+#include "../core/InputManager.h"
+
 
 class Core {
 public:

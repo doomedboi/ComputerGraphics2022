@@ -57,4 +57,5 @@ private:
     std::shared_ptr<sf::RenderWindow> window_;
     sf::ContextSettings windowSettings_;
     bool menuOpen = true;
+    float bgColor[3];
 };

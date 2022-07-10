@@ -28,7 +28,7 @@ void Renderer::DrawMenu(bool flag, Scene& sc) {
     sf::Clock deltaClock;
     float color[3] = { 0.f, 0.f, 0.f };
     char windowTitle[255] = "ImGui + SFML = <3";
-
+    glClearColor(bgColor[0], bgColor[1], bgColor[2],1.f);
     window_->pushGLStates();
     // beginning of the menu    
 
@@ -37,6 +37,7 @@ void Renderer::DrawMenu(bool flag, Scene& sc) {
     
     if (flag)
         Menu(sc);
+                     
     
     ImGui::SFML::Render(*window_);
     window_->popGLStates();
@@ -70,6 +71,8 @@ void Renderer::ProcessIvents(sf::Event event) {
 }
 
 void Renderer::InitOpenGL() {
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
     glewExperimental = GL_TRUE;
     if (GLEW_OK != glewInit()) {
         _ASSERT("GLEW ain't inited");
@@ -185,10 +188,19 @@ void Renderer::Menu(Scene& sc)
 
     bool open1 = true;
 
-
+    static float light[4];
+    static float vbgColor[3] = { 1, 0.5, 0.5 };
     ImGui::SetNextWindowSize(ImVec2(660.f, 400.f));
     if (ImGui::BeginPopupModal("World", &openworld)) {
-
+        if (ImGui::SliderFloat3("Light from position", light, -100.f, 100.f)) {
+            sc.setLight(math::vec3(light[0], light[1], light[2]));
+        }
+        if (ImGui::SliderFloat("Light's shine", &light[3], 0.f, 1.f)) {
+            sc.setLightShine(light[3]);
+        }
+        if (ImGui::SliderFloat3("Background Color", vbgColor, 0.f, 1.f)) {
+            bgColor[0] = vbgColor[0]; bgColor[1] = vbgColor[1]; bgColor[2] = vbgColor[2];
+        }
         ImGui::EndPopup();
     }
     static char selectedItem[255];

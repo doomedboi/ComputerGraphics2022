@@ -21,6 +21,9 @@ std::shared_ptr<ISceneObject> Scene::getEnity(const std::string& name) {
 }
 
 void Scene::updateStates() {
+
+    light.draw(shader);
+
     for (auto elem : Objects) {
         elem->bind();
         // update here model mat for every object to able to move scale etc separetely
@@ -33,4 +36,19 @@ void Scene::updateStates() {
         elem->draw();
         elem->unbind();
     }
+}
+
+void Scene::setLight(math::vec3 pos)
+{
+    light.setPose(pos);
+}
+
+void Scene::setLightShine(float sh)
+{
+    light.setShine(sh);
+}
+
+Light Scene::getLight()
+{
+    return light;
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <functional>
+
 
 /* Note for me: it's class that just listens and updates it's state.
  In case of realisation I must just make class that trigerring on the input.
@@ -15,4 +17,10 @@ public:
     bool IsMouseButtonReleased(sf::Mouse::Button p_button) const;
     std::pair<int, int> GetMousePosition() const;
     void ClearEvents();
+    void Process();
+private:
+    float lastx, lasty;
+    bool keys[1024];
+    void handleKeyBoard(sf::Event& sf);
+    void handleMouse(sf::Event&);
 };
