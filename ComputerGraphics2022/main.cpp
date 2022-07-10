@@ -1,47 +1,22 @@
 
-#include <iostream>
-
-//glew
-#include <GL/glew.h>
-#include "3rd_party/glm/gtc/matrix_transform.hpp"
-
-//sfml
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-
-#include "imgui-SFML.h"
-#include "imgui.h"
 
 
-#include <glfw3.h>
-
-
-
-
-#include "./utils/assimpParser.h"
-
+#include "core/Core.h"
 #include "render/Render.h"
-#include "render/ShaderLoader.h"
 
-#include <glm.hpp>
-#include "math.h"
+
 #include "3rd_party/stb/stb_image.h"
 
 #include "render/TextureLoader.h"
 #include "core/InputManager.h"
 
-
-
-
-
-#include "core/Core.h"
 using namespace std;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 bool keys[1024];
 bool cameraMove = true;
 static float lastx, lasty;
+static bool openMenu = true;
 
 void processMove() {
 	GLfloat cameraSpeed = 0.001f;
@@ -70,18 +45,14 @@ void processMove() {
 	}
 }
 
-#include "./render/Model.h"
-#include "./render/Mesh.h"
-
-#include "./core/Scene.h"
-
-
 
 static int times;
 static float rotate = 0.f;
 
 
 #include "./scene/SceneObject.h"
+
+#include "./core/Scene.h"
 
 
 int main()
@@ -90,7 +61,7 @@ int main()
 	Core::Singleton().InitCamera(math::vec3(0, 0, 3.f), math::vec3(0, 0.f, -1.f), math::vec3(0, 1.f, 0));
 
 	auto shaderProgram = ShaderLoader::singleton().load("./res/shaders/shader");
-
+	
 	
 
 	using namespace math;
@@ -117,11 +88,11 @@ int main()
 	
 	auto im = InputManager();
 
-	Scene scene;
+	Scene scene(std::make_shared<Shader>(shaderProgram));
 	
-	auto obj = std::make_shared<SceneObject>();
-	auto obj1 = std::make_shared<SceneObject>();
-	obj1->loadTexture("./res/models/rp_eric_rigged_001_dif.jpg");
+	auto obj = std::make_shared<SceneObject>(); obj->setName("obj0");
+	auto obj1 = std::make_shared<SceneObject>(); obj1->setName("obj1");
+	obj1->loadTexture("./res/pistol_colt/colt_low_polyfbx_m1911_BaseColor.png");
 	obj1->loadModel(std::string("./res/pistol_colt/colt low polyfbx.fbx"));
 	
 	scene.addEntity(obj);
@@ -152,7 +123,8 @@ int main()
 				const auto [x, y] = sf::Mouse::getPosition();
 				float diffX = x - lastx;  float diffy = lasty - y;
 				lasty = y, lastx = x;
-				Core::Singleton().GetViewCamera().SetAngles(diffX, diffy, false);
+				if (!openMenu)
+					Core::Singleton().GetViewCamera().SetAngles(diffX, diffy, false);
 				break;
 			}
 			default:
@@ -169,9 +141,8 @@ int main()
 		
 		shaderProgram.bind();
 		
-		auto model = math::mat4(1.f);
 		
-		model = glm::scale(model, glm::vec3(0.005, 0.005, 0.005));
+
 
 		auto viewMat = Core::Singleton().GetViewCamera().GetViewMatrix();
 
@@ -190,7 +161,7 @@ int main()
 
 		shaderProgram.setUniform("viewPos", glm::vec3(3, 3, 3));
 
-		shaderProgram.setUniform("model", model);
+		//shaderProgram.setUniform("model", model);
 		shaderProgram.setUniform("view", viewMat);
 		shaderProgram.setUniform("projection", Projection);
 
@@ -198,7 +169,11 @@ int main()
 		
 		shaderProgram.unbind();					
 
-		Core::Singleton().GetRender().DrawMenu();
+		
+		Core::Singleton().GetRender().DrawMenu(openMenu, scene);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
+			openMenu = !openMenu;
 
 	}
 

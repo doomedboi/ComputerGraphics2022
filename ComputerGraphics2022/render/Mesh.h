@@ -1,7 +1,9 @@
 #pragma once
+//#include "Render.h"
+#include "../render/Vertex.h"
+#include "buffers.h"
+
 #include <vector>
-#include "Vertex.h"
-#include "Render.h"
 #include <memory>
 
 
@@ -15,10 +17,10 @@ public:
         CreateBuffers(verts, indexes);
     }
     
-    void Bind() { vertexArray_.bind(); }
-    void Unbind() { vertexArray_.unbind(); }
-    auto GetVertexCount() { return vertexCount_; }
-    auto GetIndexesCount() { return indexesCount_; }
+    void Bind();
+    void Unbind();
+    uint GetVertexCount();
+    uint GetIndexesCount();
 
     std::unique_ptr<IndexBuffer> indexBuffer_;
 

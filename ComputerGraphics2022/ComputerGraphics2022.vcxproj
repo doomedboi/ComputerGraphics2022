@@ -121,7 +121,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\Avgust\source\repos\ComputerGraphics2022\ComputerGraphics2022\3rd_party\glm;C:\libs\glew\include;C:\libs\SFML\include;C:\libs\imgui-1.87;C:\libs\imgui-1.87\imgui-sfml-2.5;C:\libs\glfw\GLFW;C:\libs\assimplib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Avgust\source\repos\ComputerGraphics2022\ComputerGraphics2022\3rd_party\glm;C:\libs\glew\include;C:\libs\SFML\include;C:\libs\imgui-1.87;C:\libs\imgui-1.87\imgui-sfml-2.5;C:\libs\glfw\GLFW;C:\libs\assimplib\include;C:\Users\Avgust\source\repos\ComputerGraphics2022\ComputerGraphics2022\3rd_party\imguiFileDialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3rd_party\imguiFileDialog\ImGuiFileDialog.cpp" />
     <ClCompile Include="3rd_party\imgui\imgui-SFML.cpp" />
     <ClCompile Include="3rd_party\imgui\imgui.cpp" />
     <ClCompile Include="3rd_party\imgui\imgui_demo.cpp" />
@@ -155,7 +156,9 @@
     <ClCompile Include="3rd_party\imgui\imgui_widgets.cpp" />
     <ClCompile Include="3rd_party\stb\stb_image.cpp" />
     <ClCompile Include="core\InputManager.cpp" />
+    <ClCompile Include="core\Scene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="render\buffers.cpp" />
     <ClCompile Include="render\Core_Camera.cpp" />
     <ClCompile Include="render\Mesh.cpp" />
     <ClCompile Include="render\Render.cpp" />
@@ -165,6 +168,8 @@
     <ClCompile Include="utils\assimpParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rd_party\imguiFileDialog\ImGuiFileDialog.h" />
+    <ClInclude Include="3rd_party\imguiFileDialog\ImGuiFileDialogConfig.h" />
     <ClInclude Include="3rd_party\imgui\imconfig-SFML.h" />
     <ClInclude Include="3rd_party\imgui\imconfig.h" />
     <ClInclude Include="3rd_party\imgui\imgui-SFML.h" />
@@ -177,17 +182,23 @@
     <ClInclude Include="3rd_party\stb\stb_image.h" />
     <ClInclude Include="core\Core.h" />
     <ClInclude Include="core\InputManager.h" />
+    <ClInclude Include="core\Scene.h" />
+    <ClInclude Include="render\buffers.h" />
+    <ClInclude Include="render\menufonts.h" />
+    <ClInclude Include="scene\ISceneObject.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="render\Core_Camera.h" />
     <ClInclude Include="render\common.h" />
     <ClInclude Include="render\Mesh.h" />
     <ClInclude Include="render\Model.h" />
+    <ClInclude Include="render\Primitive.h" />
     <ClInclude Include="render\Render.h" />
     <ClInclude Include="render\Texture.h" />
     <ClInclude Include="render\TextureLoader.h" />
     <ClInclude Include="render\Vertex.h" />
     <ClInclude Include="render\Shader.h" />
     <ClInclude Include="render\ShaderLoader.h" />
+    <ClInclude Include="scene\SceneObject.h" />
     <ClInclude Include="utils\assimpParser.h" />
   </ItemGroup>
   <ItemGroup>

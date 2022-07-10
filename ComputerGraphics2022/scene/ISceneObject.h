@@ -1,7 +1,9 @@
 #pragma once
 #include "../render/common.h"
 #include "../render/Texture.h"
+#include "../render/Model.h"
 #include <string>
+
 
 struct spin
 {

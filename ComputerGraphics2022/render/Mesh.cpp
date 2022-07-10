@@ -18,3 +18,8 @@ void CMesh::CreateBuffers(std::vector<Vertex>& verts,
     vertexBuffer_->unbind();
     vertexBuffer_->unbindAttribute(0);
 }
+
+void CMesh::Bind() { vertexArray_.bind(); }
+void CMesh::Unbind() { vertexArray_.unbind(); }
+unsigned CMesh::GetVertexCount() { return vertexCount_; }
+unsigned CMesh::GetIndexesCount() { return indexesCount_; }

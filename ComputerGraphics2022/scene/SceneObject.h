@@ -1,11 +1,12 @@
 #pragma once
 
-
-#include "./ISceneObject.h"
-#include <memory>
-#include "../render/Texture.h"
-#include "../render/Model.h"
 #include "../utils/assimpParser.h"
+#include "./ISceneObject.h"
+#include "../render/Model.h"
+#include "../render/TextureLoader.h"
+
+#include <memory>
+
 
 #define parsFlags EModelParserFlags::TRIANGULATE \
         | EModelParserFlags::GEN_SMOOTH_NORMALS   \
@@ -15,7 +16,7 @@ class SceneObject : public ISceneObject {
 
 public:
     SceneObject(const math::vec3& pos, const math::vec3& scale,
-        const spin& spin, std::shared_ptr<CRawModel> model) :
+        const spin& spin, std::shared_ptr<CRawModel> model = std::make_shared<CRawModel>()) :
         pos(pos), scale_(scale), spin_(spin), model_(model) {}
 
     SceneObject() : pos(0.f), scale_(1.f), spin_(math::vec3(0.f), 0), model_(std::make_shared<CRawModel>()) {}
@@ -24,7 +25,6 @@ public:
         
         for (auto& m : this->model_->meshes)
             glDrawElements(GL_TRIANGLES, m->GetIndexesCount(), GL_UNSIGNED_INT, 0);
-        
     }
 
     virtual math::vec3 getPos() const override {
