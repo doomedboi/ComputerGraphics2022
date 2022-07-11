@@ -30,6 +30,7 @@ void Renderer::DrawMenu(bool flag, Scene& sc) {
     float color[3] = { 0.f, 0.f, 0.f };
     char windowTitle[255] = "ImGui + SFML = <3";
     glClearColor(bgColor[0], bgColor[1], bgColor[2],1.f);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     window_->pushGLStates();
     // beginning of the menu    
 

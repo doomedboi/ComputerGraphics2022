@@ -11,40 +11,9 @@
 #include "core/InputManager.h"
 
 using namespace std;
-GLfloat deltaTime = 0.0f;
-GLfloat lastFrame = 0.0f;
-bool keys[1024];
 bool cameraMove = true;
 static float lastx, lasty;
 static bool openMenu = true;
-
-void processMove() {
-	
-	auto cameraSpeed = Core::Singleton().GetViewCamera().getCameraSpeed();
-	if (keys[sf::Keyboard::W]) {
-		Core::Singleton().GetViewCamera().GetPosition() +=
-			Core::Singleton().GetViewCamera().GetFront() * cameraSpeed;
-	}
-	if (keys[sf::Keyboard::S]) {
-		Core::Singleton().GetViewCamera().GetPosition() -=
-			Core::Singleton().GetViewCamera().GetFront() * cameraSpeed;
-	}
-	if (keys[sf::Keyboard::A]) {
-		Core::Singleton().GetViewCamera().GetPosition() -=
-			glm::normalize(glm::cross(Core::Singleton().GetViewCamera().GetFront(),
-				Core::Singleton().GetViewCamera().GetUp())) * cameraSpeed;
-	}
-	if (keys[sf::Keyboard::D]) {
-		Core::Singleton().GetViewCamera().GetPosition() +=
-			glm::normalize(glm::cross(Core::Singleton().GetViewCamera().GetFront(),
-				Core::Singleton().GetViewCamera().GetUp())) * cameraSpeed;
-	}
-	if (keys[sf::Keyboard::Escape]) {
-		const auto [x, y] = sf::Mouse::getPosition();
-		lastx = x, lasty = y;
-		sf::Mouse::setPosition(sf::Vector2i(1920 / 2.f, 1080.f / 2), *Core::Singleton().GetRender().getWnd());
-	}
-}
 
 
 static int times;
@@ -97,39 +66,10 @@ int main()
 		lastx = 1920.f / 2, lasty = 1080 / 2.f;
 	}
 
-	while (isGo) {
-		sf::Event windowEvent;
-
-
-		while (Core::Singleton().GetRender().getWnd()->pollEvent(windowEvent)) { // обработка ивентов
-			Core::Singleton().GetRender().ProcessIvents(windowEvent);
-			switch (windowEvent.type) {
-			case sf::Event::Closed:
-				isGo = false;
-				break;
-			case sf::Event::KeyPressed:
-				keys[windowEvent.key.code] = true;
-				break;
-			case sf::Event::KeyReleased:
-				keys[windowEvent.key.code] = false;
-				break;
-			case sf::Event::MouseMoved: {
-				const auto [x, y] = sf::Mouse::getPosition();
-				float diffX = x - lastx;  float diffy = lasty - y;
-				lasty = y, lastx = x;
-				if (!openMenu)
-					Core::Singleton().GetViewCamera().SetAngles(diffX, diffy, false);
-				break;
-			}
-			default:
-				break;
-			}
-		}
-
-		
-		
-		processMove();
-						//отчистка экрана
+	while (Core::Singleton().getLaunchedState()) {
+		im.Process();
+	
+				
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //отчистка экрана
 		
 		shaderProgram.bind();
@@ -140,9 +80,6 @@ int main()
 		auto viewMat = Core::Singleton().GetViewCamera().GetViewMatrix();
 
 		glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 800 / 600.f, 0.1f, 100.0f);
-
-
-		
 
 		shaderProgram.setUniform("viewPos", Core::Singleton().GetViewCamera().GetPosition());
 
@@ -162,6 +99,6 @@ int main()
 	}
 
 
-	ImGui::SFML::Shutdown();
+	Core::Singleton().shutdown();
 	return 0;
 }

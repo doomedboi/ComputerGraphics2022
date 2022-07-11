@@ -29,8 +29,12 @@ public:
     Core(const Core&&) = delete;
     Core(Core&&) = delete;
     void operator=(const Core&) = delete;
+    bool getLaunchedState();
+    void setLaunchedState(bool);
+    void shutdown();
 private:
     std::unique_ptr<Renderer> render_; // draw stuff getted from scene manager
     CCamera camera_;
     InputManager inputManager_;
+    bool launched = true;
 };

@@ -12,12 +12,39 @@ std::pair<int, int> InputManager::GetMousePosition() const {
 
 void InputManager::Process() {
 	sf::Event windowEvent;
-	while (Core::Singleton().GetRender().getWnd()->pollEvent(windowEvent)) {
 
-		handleMouse(windowEvent);
-		handleKeyBoard(windowEvent);
+
+	while (Core::Singleton().GetRender().getWnd()->pollEvent(windowEvent)) { // обработка ивентов
+		Core::Singleton().GetRender().ProcessIvents(windowEvent);
+		switch (windowEvent.type) {
+		case sf::Event::Closed:
+			Core::Singleton().setLaunchedState(false);
+			break;
+		case sf::Event::KeyPressed:
+			keys[windowEvent.key.code] = true;
+			break;
+		case sf::Event::KeyReleased:
+			keys[windowEvent.key.code] = false;
+			break;
+		case sf::Event::MouseMoved: {
+			const auto [x, y] = sf::Mouse::getPosition();
+			float diffX = x - lastx;  float diffy = lasty - y;
+			lasty = y, lastx = x;
+			//if (!openMenu)
+				Core::Singleton().GetViewCamera().SetAngles(diffX, diffy, false);
+			break;
+		}
+		default:
+			break;
+		}
 	}
+		
 
+			handleMouse(windowEvent);
+			handleKeyBoard(windowEvent);
+		
+
+	
 }
 
 void InputManager::handleKeyBoard(sf::Event& ev) {
