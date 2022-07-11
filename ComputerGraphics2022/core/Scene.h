@@ -22,6 +22,7 @@ public:
     void setLight(math::vec3 pos);
     void setLightShine(float);
     Light getLight();
+    void setShader(std::shared_ptr<Shader>);
 private:
     std::vector<std::shared_ptr<ISceneObject>> Objects;
     std::shared_ptr<Shader> shader;

@@ -49,13 +49,37 @@ public:
     std::shared_ptr<sf::RenderWindow> getWnd();
     void ProcessIvents(sf::Event);
 private:
+    class Menu {
+    public:
+        void BeginFrame();
+        void EndFrame();
+        void DrawMainMenu();
+        void DrawObjectsMenu(Scene&);
+        void DrawDetailObjectsMenu(Scene&);
+        void DrawCreateObjectMenu(Scene&);
+        void DrawWorldMenu(Scene&, Renderer&);
+        void DrawSettingsMenu(Renderer& render);
+
+    private:
+        sf::Clock deltaClock;
+        float color[3] = { 0.f, 0.f, 0.f };
+        char windowTitle[255] = "ImGui + SFML = <3";
+        ImGuiStyle* style;
+        bool openModal = true;
+        
+        //static int nowSelectedDetail;
+    };
+private:
+    class Menu;
     void InitOpenGL();
     void InitImgui();
-    void Menu(Scene&);
+    void DrawMenu(Scene&);
 private:
     std::shared_ptr<RenderBehavior> renderStrategy;
     std::shared_ptr<sf::RenderWindow> window_;
     sf::ContextSettings windowSettings_;
-    bool menuOpen = true;
+    bool menuOpen = true; // maybe move it to the menu class?
     float bgColor[3];
+    Menu menu;
+
 };

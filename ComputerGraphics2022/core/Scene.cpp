@@ -52,3 +52,7 @@ Light Scene::getLight()
 {
     return light;
 }
+
+void Scene::setShader(std::shared_ptr<Shader> sh) {
+    shader = sh;
+}
