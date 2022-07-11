@@ -43,7 +43,8 @@ public:
     void SetDrawPrimitive(RenderBehavior* drawStrategy);
     void DrawArrays(GLenum mode, int from, int to);
     void DrawPrimitive();
-    
+    void setMenuState(bool);
+    bool getMenuState();
     
     
     std::shared_ptr<sf::RenderWindow> getWnd();

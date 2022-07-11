@@ -63,6 +63,15 @@ void Renderer::DrawArrays(GLenum mode, int from, int to) {
     glDrawArrays(mode, from, to);
 }
 
+void Renderer::setMenuState(bool state) {
+    menuOpen = state;
+}
+
+bool Renderer::getMenuState()
+{
+    return menuOpen;
+}
+
 
 
 std::shared_ptr<sf::RenderWindow> Renderer::getWnd() { return window_; }
@@ -87,6 +96,9 @@ void Renderer::InitImgui() {
 
 
 void Renderer::DrawMenu(Scene& sc) {
+    if (!menuOpen)
+        return;
+
     menu.BeginFrame();
     menu.DrawMainMenu();
     menu.DrawDetailObjectsMenu(sc);

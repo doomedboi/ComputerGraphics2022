@@ -20,9 +20,11 @@ void InputManager::Process() {
         case sf::Event::Closed:
             Core::Singleton().setLaunchedState(false);
             break;
-        case sf::Event::KeyPressed:
+        
+        case sf::Event::KeyPressed: {
             keys[windowEvent.key.code] = true;
             break;
+        }
         case sf::Event::KeyReleased:
             keys[windowEvent.key.code] = false;
             break;
@@ -30,7 +32,8 @@ void InputManager::Process() {
             const auto [x, y] = sf::Mouse::getPosition();
             float diffX = x - lastx;  float diffy = lasty - y;
             lasty = y, lastx = x;
-            //if (!openMenu)
+            if (Core::Singleton().GetRender().getMenuState() != false)
+                return;
             Core::Singleton().GetViewCamera().SetAngles(diffX, diffy, false);
             break;
         }
@@ -39,7 +42,7 @@ void InputManager::Process() {
         }
     }
 
-
+    
     handleMouse(windowEvent);
     handleKeyBoard(windowEvent);
 
@@ -48,7 +51,14 @@ void InputManager::Process() {
 }
 
 void InputManager::handleKeyBoard(sf::Event& ev) {
-    GLfloat cameraSpeed = 0.001f;
+    GLfloat cameraSpeed = Core::Singleton().GetViewCamera().getCameraSpeed();
+    if (keys[sf::Keyboard::Home]) {
+        Core::Singleton().GetRender().setMenuState(
+            !Core::Singleton().GetRender().getMenuState()
+        );
+    }
+    if (Core::Singleton().GetRender().getMenuState() != false)
+        return;
     if (keys[sf::Keyboard::W]) {
         Core::Singleton().GetViewCamera().GetPosition() +=
             Core::Singleton().GetViewCamera().GetFront() * cameraSpeed;
@@ -67,6 +77,7 @@ void InputManager::handleKeyBoard(sf::Event& ev) {
             glm::normalize(glm::cross(Core::Singleton().GetViewCamera().GetFront(),
                 Core::Singleton().GetViewCamera().GetUp())) * cameraSpeed;
     }
+    
 }
 
 void InputManager::handleMouse(sf::Event& ev) {

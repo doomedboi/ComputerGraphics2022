@@ -11,13 +11,7 @@
 #include "core/InputManager.h"
 
 using namespace std;
-bool cameraMove = true;
-static float lastx, lasty;
 static bool openMenu = true;
-
-
-static int times;
-static float rotate = 0.f;
 
 
 #include "./scene/SceneObject.h"
@@ -34,9 +28,6 @@ int main()
 
     using namespace math;
 
-    bool isGo = true;
-
-
     auto im = InputManager();
 
     Scene scene(std::make_shared<Shader>(shaderProgram));
@@ -51,7 +42,6 @@ int main()
 
     if (Core::Singleton().GetRender().getWnd()->hasFocus()) {
         sf::Mouse::setPosition(sf::Vector2i(1920.f / 2, 1080.f / 2), *Core::Singleton().GetRender().getWnd());
-        lastx = 1920.f / 2, lasty = 1080 / 2.f;
     }
 
     while (Core::Singleton().getLaunchedState()) {
@@ -78,7 +68,7 @@ int main()
 
         Core::Singleton().GetRender().DrawMenu(openMenu, scene);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
+        if (im.IsKeyPressed(sf::Keyboard::Home))
             openMenu = !openMenu;
 
     }
